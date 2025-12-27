@@ -28,7 +28,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: adarshjain428/emailservice:latest
+        image: adarshjain428/emailservice:10
         ports:
         - containerPort: 8080
         env:
@@ -81,7 +81,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: adarshjain428/checkoutservice:latest
+          image: adarshjain428/checkoutservice:10
           ports:
           - containerPort: 5050
           readinessProbe:
@@ -143,7 +143,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: adarshjain428/recommendationservice:latest
+        image: adarshjain428/recommendationservice:10
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -200,7 +200,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: adarshjain428/frontend:latest
+          image: adarshjain428/frontend:10
           ports:
           - containerPort: 8080
           readinessProbe:
@@ -297,7 +297,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: adarshjain428/paymentservice:latest
+        image: adarshjain428/paymentservice:10
         ports:
         - containerPort: 50051
         env:
@@ -349,7 +349,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: adarshjain428/productcatalogservice:latest
+        image: adarshjain428/productcatalogservice:10
         ports:
         - containerPort: 3550
         env:
@@ -401,7 +401,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: adarshjain428/cartservice:latest
+        image: adarshjain428/cartservice:10
         ports:
         - containerPort: 7070
         env:
@@ -465,7 +465,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: adarshjain428/loadgenerator:latest
+        image: adarshjain428/loadgenerator:10
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -496,7 +496,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: adarshjain428/currencyservice:latest
+        image: adarshjain428/currencyservice:10
         ports:
         - name: grpc
           containerPort: 7000
@@ -548,7 +548,7 @@ spec:
       serviceAccountName: default
       containers:
       - name: server
-        image: adarshjain428/shippingservice:latest
+        image: adarshjain428/shippingservice:10
         ports:
         - containerPort: 50051
         env:
@@ -654,7 +654,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: adarshjain428/adservice:latest
+        image: adarshjain428/adservice:10
         ports:
         - containerPort: 9555
         env:
