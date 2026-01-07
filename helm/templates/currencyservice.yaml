@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: currencyservice
-  namespace: {{ .Values.namespace }}
   labels:
     app: currencyservice
-    {{- include "app.labels" . | nindent 4 }}
+    app.kubernetes.io/name: online-boutique
+    app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   selector:
     matchLabels:
@@ -18,27 +18,30 @@ spec:
       containers:
         - name: server
           image: "{{ .Values.currencyservice.image }}:{{ .Values.currencyservice.tag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy | default "IfNotPresent" }}
           ports:
-            - containerPort: 7000
+            - containerPort: {{ .Values.currencyservice.port }}
+          env:
+            - name: PORT
+              value: "{{ .Values.currencyservice.port }}"
           readinessProbe:
             tcpSocket:
-              port: 7000
+              port: {{ .Values.currencyservice.port }}
             periodSeconds: 5
           livenessProbe:
             tcpSocket:
-              port: 7000
+              port: {{ .Values.currencyservice.port }}
             periodSeconds: 5
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: currencyservice
-  namespace: {{ .Values.namespace }}
 spec:
   type: ClusterIP
   selector:
     app: currencyservice
   ports:
     - name: grpc
-      port: 7000
-      targetPort: 7000
+      port: {{ .Values.currencyservice.port }}
+      targetPort: {{ .Values.currencyservice.port }}
