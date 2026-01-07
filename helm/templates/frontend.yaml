@@ -5,7 +5,8 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     app: frontend
-    {{- include "app.labels" . | nindent 4 }}
+    app.kubernetes.io/name: online-boutique
+    app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   selector:
     matchLabels:
