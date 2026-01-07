@@ -5,7 +5,8 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     app: adservice
-    {{- include "app.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   selector:
     matchLabels:
