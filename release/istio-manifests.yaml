@@ -13,7 +13,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - ob.adarsh-jain-ecom.gt.tc
+        - ob.adarsh-jain-ecom.infinityfreeapp.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
@@ -57,7 +57,7 @@ metadata:
   namespace: ecom
 spec:
   hosts:
-    - ob.adarsh-jain-ecom.gt.tc
+    - ob.adarsh-jain-ecom.infinityfreeapp.com
   gateways:
     - istio-gateway
   http:
@@ -69,7 +69,7 @@ spec:
           set:
             X-Forwarded-Proto: http
             X-Forwarded-Port: "80"
-            X-Forwarded-Host: ob.adarsh-jain-ecom.gt.tc
+            X-Forwarded-Host: ob.adarsh-jain-ecom.infinityfreeapp.com
       route:
         - destination:
             host: frontend
