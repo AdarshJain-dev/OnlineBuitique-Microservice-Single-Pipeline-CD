@@ -1,0 +1,77 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: istio-gateway
+  namespace: ecom
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - ob.adarsh-jain-ecom.infinityfreeapp.com
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: allow-egress-googleapis
+  namespace: ecom
+spec:
+  hosts:
+    - "accounts.google.com"
+    - "*.googleapis.com"
+  ports:
+    - number: 80
+      protocol: HTTP
+      name: http
+    - number: 443
+      protocol: HTTPS
+      name: https
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: allow-egress-google-metadata
+  namespace: ecom
+spec:
+  hosts:
+    - metadata.google.internal
+  addresses:
+    - 169.254.169.254
+  ports:
+    - number: 80
+      name: http
+      protocol: HTTP
+    - number: 443
+      name: https
+      protocol: HTTPS
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: frontend
+  namespace: ecom
+spec:
+  hosts:
+    - ob.adarsh-jain-ecom.infinityfreeapp.com
+  gateways:
+    - istio-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      headers:
+        request:
+          set:
+            X-Forwarded-Proto: http
+            X-Forwarded-Port: "80"
+            X-Forwarded-Host: ob.adarsh-jain-ecom.infinityfreeapp.com
+      route:
+        - destination:
+            host: frontend
+            port:
+              number: 80
